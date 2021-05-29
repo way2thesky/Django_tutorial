@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # PyCharm
-../My_First_Django/.idea/.idea
+.idea/
