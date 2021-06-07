@@ -76,13 +76,16 @@ def triangle(request):
 
 # Homework 7. Django: Создание и обновление персональных данных в БД
 def create_person_data(request):
-    form = NewPerson(request.POST)
-    if form.is_valid():
-        instance = form.save()
-        messages.success(request, "Created")
-        return redirect(instance.get_absolute_url())
+    if request.method == "POST":
+        form = NewPerson(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            messages.success(request, "Created")
+            return redirect(instance.get_absolute_url())
+        else:
+            messages.error(request, 'Not Created')
     else:
-        messages.error(request, 'Not Created')
+        form = NewPerson()
     context = {
         'form': form,
     }
