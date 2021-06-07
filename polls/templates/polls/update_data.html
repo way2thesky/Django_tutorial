@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>
+        {% block title %}
+            Update Personal Data
+        {% endblock %}
+    </title>
+    <style>
+        h1{
+            color: black;
+            background: #fc3;
+            border: 6px double black;
+            width: 400px;
+            height: 100px;
+        }
+
+        .data {
+            color: black;
+            background: #00aaf1;
+            border: 6px double black;
+            width: 400px;
+            height: 130px;
+        }
+        body{
+            border: 6px double black;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="main">
+    <form action="" method="post">
+    <h1>Personal Data:</h1>
+        <div class ='data'>
+        <label>First Name: <strong>{{person_upd.first_name }}</strong></label><br>
+        <label>Last Name: <strong>{{ person_upd.last_name }}</strong></label><br>
+        <label>Email: <strong>{{ person_upd.email }} </strong></label><br>
+        <label>Age: <strong>{{ person_upd.age }} </strong></label><br>
+            </div>
+
+        {% csrf_token %}
+        {{ form.as_p }}
+               <div id="back">
+            <button><a href="person/">Back</a></button>
+        </div>
+        <input type="submit" value="Update">
+    </form>
+
+</div>
+
+</body>
+</html>
