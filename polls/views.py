@@ -103,7 +103,7 @@ def update_person_data(request, id=None): # noqa A002
     else:
         form = NewPerson(instance=instance)
     context = {
-            'form': form,
-            'person_upd': instance,
+        'form': form,
+        'person_upd': instance,
     }
     return render(request, 'polls/update_data.html', context)

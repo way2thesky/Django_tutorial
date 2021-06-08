@@ -1,64 +1,75 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <title>
-        {% block title %}
-            Update Personal Data
-        {% endblock %}
-    </title>
-    <style>
-        h1{
-            color: black;
-            background: #fc3;
-            border: 6px double black;
-            width: 400px;
-            height: 100px;
-        }
+{% extends 'base.html' %}
 
-        .data {
-            color: black;
-            background: #00aaf1;
-            border: 6px double black;
-            width: 400px;
-            height: 130px;
-        }
-        body{
-            border: 6px double black;
-            position: absolute;
-        }
-    </style>
-</head>
-<body>
-{% if messages %}
-    <ul class="messages">
-    {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<div class="main">
-    <form action="" method="post">
-    <h1>Personal Data:</h1>
-        <div class ='data'>
-        <label>First Name: <strong>{{person_upd.first_name }}</strong></label><br>
-        <label>Last Name: <strong>{{ person_upd.last_name }}</strong></label><br>
-        <label>Email: <strong>{{ person_upd.email }} </strong></label><br>
-        <label>Age: <strong>{{ person_upd.age }} </strong></label><br>
-            </div>
+{% block content %}
 
+    <div class="main">
         {% csrf_token %}
-        {{ form.as_p }}
-               <div id="back">
-            <button><a href="person/">Back</a></button>
-        </div>
-        <input type="submit" value="Update">
-    </form>
+        <form action="" method="post">
+            <h1>Personal Data:</h1>
+            <div class='data'>
+                <label>First Name: <strong>{{ person_upd.first_name }}</strong></label><br>
+                <label>Last Name: <strong>{{ person_upd.last_name }}</strong></label><br>
+                <label>Email: <strong>{{ person_upd.email }} </strong></label><br>
+                <label>Age: <strong>{{ person_upd.age }} </strong></label><br>
+            </div>
+            <div class="main">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-4 mb-3">
+                        {{ form.first_name.errors }}
+                        {{ form.first_name.label_tag }}
+                        <input type="text"
+                               class="form-control"
+                               placeholder="{{ form.first_name.label }}"
+                               name="{{ form.first_name.name }}"
+                               id="{{ form.first_name.id_for_label }}"
+                               {% if form.first_name.value != None %}value="{{ form.first_name.value|stringformat:'s' }}"{% endif %}
+                               maxlength="{{ form.first_name.field.max_length }}"
+                               {% if form.first_name.field.required %}required{% endif %}>
 
-</div>
-
-</body>
-</html>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.last_name.erros }}
+                        {{ form.last_name.label_tag }}
+                        <input type="text"
+                               class="form-control"
+                               placeholder="{{ form.last_name.label }}"
+                               name="{{ form.last_name.name }}"
+                               id="{{ form.last_name.id_for_label }}"
+                               {% if form.last_name.value != None %}value="{{ form.last_name.value|stringformat:'s' }}"{% endif %}
+                               maxlength="{{ form.last_name.field.max_length }}"
+                               {% if form.last_name.field.required %}required{% endif %}>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {{ form.email.errors }}
+                        {{ form.email.label_tag }}
+                        <input type="email"
+                               class="form-control"
+                               placeholder="{{ form.email.label }}"
+                               name="{{ form.email.name }}"
+                               id="{{ form.email.id_for_label }}"
+                               {% if form.email.value != None %}value="{{ form.email.value|stringformat:'s' }}"{% endif %}
+                               {% if form.email.field.required %}required{% endif %}>
+                    </div>
+                    <div class="col-md-1 mb-3">
+                        {{ form.age.errors }}
+                        {{ form.age.label_tag }}
+                        <input type="text"
+                               class="form-control"
+                               placeholder="{{ form.age.label }}"
+                               name="{{ form.age.name }}"
+                               id="{{ form.age.id_for_label }}"
+                               {% if form.age.value != None %}value="{{ form.age.value|stringformat:'s' }}"{% endif %}
+                               {% if form.age.field.required %}required{% endif %}>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        {{ form.submit.errors }}
+                        {{ form.submit.label_tag }}
+                        <input type="submit"
+                               class="form-control">
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+{% endblock %}
