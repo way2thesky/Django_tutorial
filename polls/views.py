@@ -67,7 +67,7 @@ def triangle(request):
         if form.is_valid():
             first_side = form.cleaned_data['first_side']
             second_side = form.cleaned_data['second_side']
-            gip = math.sqrt(first_side ** 2 + second_side ** 2) ** 0.5
+            gip = math.sqrt(first_side ** 2 + second_side ** 2)
             return render(request, "polls/form_triangle.html", context={'gip': gip})
     else:
         form = TriangleForm()
