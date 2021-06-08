@@ -1,56 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Расчёт гипотенузы</title>
-    <style>
-        h3{
-            color: black;
-            background: #fc3;
-            border: 6px double black;
-            width: 240px;
-            height: 30px;
-            padding: 50px;
-        }
-        p {
-            color: black;
-            background: #00aaf1;
-            border: 6px double black;
-            width: 240px;
-            height: 30px;
-            padding: 50px;
-        }
-        .mid {
-            position: absolute;
-            left: 120px;
-        }
-        #back {
-            margin-top: 10px;
-            padding: 110px;
-        }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
 
 
-<a href=""> <h3>Расчёт гипотенузы</h3></a>
-<form action="" method="post">
-    {% if gip %}
-        <strong><p align="top">Сумма гипотенузы равна: {{ gip }}</p></strong>
-        <div id="back">
-            <input type="button" onclick="history.back();" value="Назад"/>
-        </div>
-    {% else %}
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="mid">
-            <button type="submit">Посчитать</button>
-        </div>
-    {% endif %}
-</form>
-</body>
-</html>
+{% block content %}
+    {% block title %}<title>Triangle</title>{% endblock %}
+    <a href="" style="color: black"><h3>Расчёт гипотенузы</h3></a>
+    <form action="" method="post">
+        {% if gip %}
+            <strong><p align="top">Сумма гипотенузы равна: {{ gip }}</p></strong>
+            <div id="back">
+                <input type="button" onclick="history.back();" value="Назад"/>
+            </div>
+        {% else %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="mid">
+                <button type="submit">Посчитать</button>
+            </div>
+        {% endif %}
 
+{% endblock %}
