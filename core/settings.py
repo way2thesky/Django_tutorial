@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'polls.apps.PollsConfig',
+    # Homework 6. Django forms 'triangle'
+    'triangle.apps.TriangleConfig',
+    # Homework 7. Django model form 'Person/Person update'
+    'person.apps.PersonConfig',
+    # HomeWork 8 M2M, OTO, MT
+    'retailer.apps.RetailerConfig',
+    'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -127,4 +135,11 @@ MESSAGE_TAGS = {
     message_constants.SUCCESS: 'success',
     message_constants.WARNING: 'warning',
     message_constants.ERROR: 'danger',
+}
+
+# Homework 8
+GRAPH_MODELS = {
+    'all_applications': False,
+    'group_models': True,
+    'app_labels': ["retailer"],
 }

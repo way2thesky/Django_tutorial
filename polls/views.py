@@ -1,14 +1,10 @@
-import math
-
-from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .forms import NewPerson, TriangleForm
-from .models import Choice, Person, Question
+from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
@@ -58,52 +54,3 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-
-# Homework 6. Django: Калькулятор гипотенузы
-def triangle(request):
-    if request.method == "POST":
-        form = TriangleForm(request.POST)
-        if form.is_valid():
-            first_side = form.cleaned_data['first_side']
-            second_side = form.cleaned_data['second_side']
-            gip = math.sqrt(first_side ** 2 + second_side ** 2)
-            return render(request, "polls/form_triangle.html", context={'gip': gip})
-    else:
-        form = TriangleForm()
-    return render(request, "polls/form_triangle.html", context={"form": form})
-
-
-# Homework 7. Django: Создание и обновление персональных данных в БД
-def create_person_data(request):
-    if request.method == "POST":
-        form = NewPerson(request.POST)
-        if form.is_valid():
-            instance = form.save()
-            messages.success(request, "Created")
-            return redirect(instance.get_absolute_url())
-        else:
-            messages.error(request, 'Not Created')
-    else:
-        form = NewPerson()
-    context = {
-        'form': form,
-    }
-    return render(request, 'polls/create_data.html', context)
-
-
-def update_person_data(request, id=None): # noqa A002
-    instance = get_object_or_404(Person, id=id)
-    if request.method == "POST":
-        form = NewPerson(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, "Saved!")
-            return redirect(reverse('update_person', args=[id]))
-    else:
-        form = NewPerson(instance=instance)
-    context = {
-        'form': form,
-        'person_upd': instance,
-    }
-    return render(request, 'polls/update_data.html', context)
