@@ -25,7 +25,7 @@ class Provider(models.Model):
     city = models.OneToOneField(City, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.first_name}, {self.last_name}'
 
 
 class Client(models.Model):
@@ -37,4 +37,13 @@ class Client(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.first_name}, {self.last_name}'
+
+
+class Logs(models.Model):
+    path = models.CharField(max_length=125)
+    method = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.path}, {self.method}, {self.timestamp}'

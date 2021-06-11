@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import City, Client, Product, Provider
+from .models import City, Client, Logs, Product, Provider
 
 
 @admin.register(City)
@@ -21,3 +21,8 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Provider)
 class ProviderAdmin(admin.ModelAdmin):
     list_display = ["first_name"]
+
+
+@admin.register(Logs)
+class LogsAdmin(admin.ModelAdmin):
+    list_display = ["path", "method", "timestamp"]
