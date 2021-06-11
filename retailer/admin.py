@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import City, Product, Provider, Client
+
+from .models import City, Client, Product, Provider
 
 
 class CityAdmin(admin.ModelAdmin):
