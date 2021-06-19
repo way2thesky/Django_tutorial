@@ -36,3 +36,23 @@ https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/
 <br>
 /person - GET - получить форму<br>
 /person - POST - отвалидировать и сохранить новый объект Person в базу<br>
+  
+<strong>Homework 8. OneToOneField, ForeignKey, ManyToManyField::</strong><br>
+
+Реализовать в приложении модели использующие поля OneToOneField, ForeignKey, ManyToManyField.
+
+Использовать graph_models из django-extensions что бы отобразить структуру моделей ТОЛЬКО этого приложения.
+
+Пример:
+
+Город
+Клиент (MTM на товар, FK на город)
+Товар
+Поставщик (OTO на город)
+Написать по запросу из инстанса одной модели в другую по каждой из связей (всего 3 запроса).
+
+Для создания запроса используйте shell_plus --print-sql что бы ваш SQL отобразился в консоли.
+
+<strong>Homework 9. Middleware, ModelAdmin:</strong><br>
+Добавить модель для логов. В ней должны быть поля - path (путь), method (GET, POST etc), timestamp. Добавить мидлвар LogMiddleware который будет обрабатывать каждый реквест (кроме реквестов в админку) и сохранять соответствующие значения в базу.
+Добавить ModelAdmin для этой модели что бы вывести соответствующие данные в админке.
