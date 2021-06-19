@@ -54,5 +54,6 @@ https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/
 Для создания запроса используйте shell_plus --print-sql что бы ваш SQL отобразился в консоли.
 
 <strong>Homework 9. Middleware, ModelAdmin:</strong><br>
+
 Добавить модель для логов. В ней должны быть поля - path (путь), method (GET, POST etc), timestamp. Добавить мидлвар LogMiddleware который будет обрабатывать каждый реквест (кроме реквестов в админку) и сохранять соответствующие значения в базу.
 Добавить ModelAdmin для этой модели что бы вывести соответствующие данные в админке.
