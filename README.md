@@ -8,7 +8,10 @@ https://docs.djangoproject.com/en/3.2/intro/tutorial05/<br>
 https://docs.djangoproject.com/en/3.2/intro/tutorial06/<br>
 https://docs.djangoproject.com/en/3.2/intro/tutorial07/<br>
 
-<strong>Homework 5. queryset filter, managment commands:</strong><br>
+<ol>
+  <strong>Homework 5. queryset filter, managment commands:</strong><br>
+</ol>
+
 
 Написать кастомную менеджент комманду которая будет генеритовать случайных пользователей ( https://docs.djangoproject.com/en/3.1/ref/models/querysets/#create ) c username, email и password. Команда принимает один обязательный аргумент - количество вновь сгенерированных пользователей. Значения меньше 1 и больше 10 - должны вызывать ошибку.
 https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/
