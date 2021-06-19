@@ -22,10 +22,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-eup!4(jfi=we^!3@a=f)8&3dte!0w49*h-t48aliekbf-an)^l')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'True'
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    '127.0.0.1',
+]
 
+# HomeWork 10: ddt, silk
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +56,13 @@ INSTALLED_APPS = [
 
 ]
 
+# HomeWork 10: ddt, silk
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+        'silk',
+    ]
+
 MIDDLEWARE = [
     'retailer.middleware.LogMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +73,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# HomeWork 10: ddt, silk
+if DEBUG:
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        'silk.middleware.SilkyMiddleware',
+    ]
 
 ROOT_URLCONF = 'core.urls'
 
@@ -126,6 +147,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -145,6 +170,22 @@ GRAPH_MODELS = {
     'group_models': True,
     'app_labels': ["catalog"],
 }
+
+# SHELL PLUS
+SHELL_PLUS = "ipython"
+SHELL_PLUS_PRINT_SQL = True
+
+# HomeWork 10: ddt, silky
+SILKY_AUTHORISATION = True
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHENTICATION = True
+
+
+def custom_silky_permissions(user):
+    return user.is_superuser
+
+
+SILKY_PERMISSIONS = custom_silky_permissions
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
