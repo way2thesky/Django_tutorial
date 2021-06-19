@@ -2,6 +2,6 @@ li a {
     color: white;
 }
 body {
-    background: white url("images/background_polls.jpg") no-repeat;
+    background: white url("../../../static/css/images/background_polls.jpg") no-repeat;
 }
 
