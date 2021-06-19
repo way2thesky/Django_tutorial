@@ -1,4 +1,4 @@
-<h1> Создаение первого приложения на Django по документации </h1>
+<h1><strong>Курс молодого бойца</strong></h1>
 
 https://docs.djangoproject.com/en/3.2/intro/tutorial01/<br>
 https://docs.djangoproject.com/en/3.2/intro/tutorial02/<br>
