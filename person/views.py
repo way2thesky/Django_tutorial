@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from .forms import NewPerson
+from .forms import NewPerson, ReminderFrom
 from .models import Person
 
 
@@ -39,3 +39,17 @@ def update_person_data(request, pk=None):  # noqa A002
         'person_upd': instance,
     }
     return render(request, '../templates/update_data.html', context)
+
+
+# def reminder_form(request):
+#     if request.methed == "POST":
+#         form = ReminderFrom()
+#     else:
+#         form = ReminderFrom(request.POST)
+#         if form.is_valid():
+#             subject = 'Напоминание'
+#             message = form.cleaned_data['message']
+#             from_email = form.cleaned_data['from_email']
+#             text = form.cleaned_data['text']
+#             data_rem = form.cleaned_data['reminder']
+#             try:

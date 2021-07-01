@@ -53,15 +53,14 @@ INSTALLED_APPS = [
     # HomeWork 8 M2M, OTO, MT
     'retailer.apps.RetailerConfig',
     'django_extensions',
+    # HomeWork 12 Celery
+    'django_celery_results',
+    'django_celery_beat',
+    # HomeWork 10: ddt, silk
+    'debug_toolbar',
+    'silk',
 
 ]
-
-# HomeWork 10: ddt, silk
-if DEBUG:
-    INSTALLED_APPS += [
-        'debug_toolbar',
-        'silk',
-    ]
 
 MIDDLEWARE = [
     'retailer.middleware.LogMiddleware',
@@ -70,16 +69,12 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # HomeWork 10: ddt, silk
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'silk.middleware.SilkyMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# HomeWork 10: ddt, silk
-if DEBUG:
-    MIDDLEWARE += [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-        'silk.middleware.SilkyMiddleware',
-    ]
 
 ROOT_URLCONF = 'core.urls'
 
@@ -178,18 +173,28 @@ SHELL_PLUS = "ipython"
 SHELL_PLUS_PRINT_SQL = True
 
 # HomeWork 10: ddt, silky
-SILKY_AUTHORISATION = True
-SILKY_PYTHON_PROFILER = True
-SILKY_AUTHENTICATION = True
+SILKY_AUTHENTICATION = True  # User must login
+SILKY_AUTHORISATION = True  # User must have permissions
 
 
-def custom_silky_permissions(user):
+def my_custom_perms(user):
     return user.is_superuser
 
 
-SILKY_PERMISSIONS = custom_silky_permissions
+SILKY_PERMISSIONS = my_custom_perms
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# CELERY SETTINGS
+CELERY_DEBUG = False
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
