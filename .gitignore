@@ -131,4 +131,3 @@ dmypy.json
 # PyCharm
 .idea/
 .idea
-staticfiles
