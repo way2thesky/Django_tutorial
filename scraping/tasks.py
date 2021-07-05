@@ -7,7 +7,7 @@
 # @shared_task
 # def scrap_quote():
 #     all_quotes = []
-#     for i in range(1, 11):
+#     for i in range(1, 6):
 #         url = f'https://quotes.toscrape.com/page/{i}/'
 #         page = urlopen(url)
 #         soup = BeautifulSoup(page, 'html.parser')
