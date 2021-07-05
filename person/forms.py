@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django import forms
+from django.utils import timezone
 
 from .models import Person
 
@@ -10,7 +13,17 @@ class NewPerson(forms.ModelForm):
         fields = ('first_name', 'last_name', 'email', 'age')
 
 
+# Homework 12. Celery
 class ReminderFrom(forms.Form):
-    from_email = forms.EmailField(required=True)
-    subject = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
+    date = forms.DateTimeField(required=True,
+                               widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD HH:MM'}),
+                               label='Time for reminder')
+
+    def clean_date(self):
+        time = self.cleaned_data['date']
+        time_now = timezone.now()
+        if time <= time_now or time >= time_now + timedelta(days=2):
+            raise forms.ValidationError("the date cannot be in the past and the date must be no later than 2 days")
+        return time

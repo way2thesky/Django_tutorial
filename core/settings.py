@@ -46,20 +46,27 @@ INSTALLED_APPS = [
     # Mozilla tutorial
     'catalog.apps.CatalogConfig',
     'polls.apps.PollsConfig',
+
     # Homework 6. Django forms 'triangle'
     'triangle.apps.TriangleConfig',
+
     # Homework 7. Django model form 'Person/Person update'
     'person.apps.PersonConfig',
+
     # HomeWork 8 M2M, OTO, MT
     'retailer.apps.RetailerConfig',
+
     'django_extensions',
-    # HomeWork 12 Celery
-    'django_celery_results',
-    'django_celery_beat',
     # HomeWork 10: ddt, silk
     'debug_toolbar',
     'silk',
 
+    # HomeWork 12 Celery
+    'django_celery_results',
+    'django_celery_beat',
+
+    # HomeWork 13 bs4
+    'scraping.apps.ScrapingConfig',
 ]
 
 MIDDLEWARE = [

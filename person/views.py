@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from .forms import NewPerson, ReminderFrom
 from .models import Person
+from .tasks import send_mail as celery_send_mail
 
 
 # Homework 7. Django: Создание и обновление персональных данных в БД
@@ -41,15 +42,16 @@ def update_person_data(request, pk=None):  # noqa A002
     return render(request, '../templates/update_data.html', context)
 
 
-# def reminder_form(request):
-#     if request.methed == "POST":
-#         form = ReminderFrom()
-#     else:
-#         form = ReminderFrom(request.POST)
-#         if form.is_valid():
-#             subject = 'Напоминание'
-#             message = form.cleaned_data['message']
-#             from_email = form.cleaned_data['from_email']
-#             text = form.cleaned_data['text']
-#             data_rem = form.cleaned_data['reminder']
-#             try:
+def reminder(request):
+    if request.method == "POST":
+        form = ReminderFrom(request.POST)
+        if form.is_valid():
+            subject = 'REMINDER'
+            message = form.cleaned_data['message']
+            from_email = form.cleaned_data['email']
+            date = form.cleaned_data['date']
+            celery_send_mail.apply_async((subject, message, from_email), eta=date)
+            messages.success(request, f'{from_email} will be get this Reminder at {date}!')
+    else:
+        form = ReminderFrom()
+    return render(request, '../templates/reminder.html', context={"form": form, })
