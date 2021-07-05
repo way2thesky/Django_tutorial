@@ -52,6 +52,7 @@ def reminder(request):
             date = form.cleaned_data['date']
             celery_send_mail.apply_async((subject, message, from_email), eta=date)
             messages.success(request, f'{from_email} will be get this Reminder at {date}!')
+            return redirect('person:reminder')
     else:
         form = ReminderFrom()
     return render(request, '../templates/reminder.html', context={"form": form, })
