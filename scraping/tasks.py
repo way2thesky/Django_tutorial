@@ -39,10 +39,10 @@ def scraping_quotes():
                     author_born_location = author_detail.find('span', class_='author-born-location').text
                     author_description = author_detail.find('div', class_='author-description').text
 
-                    author = Author.objects.create(author_title=auth,
-                                                   author_born_date=author_born_date,
-                                                   author_born_location=author_born_location,
-                                                   author_description=author_description)
+                    author = Author.objects.get_or_create(author_title=auth,
+                                                          author_born_date=author_born_date,
+                                                          author_born_location=author_born_location,
+                                                          author_description=author_description)
                 else:
                     author = Author.objects.get(author_title=auth)
 
