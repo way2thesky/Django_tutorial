@@ -20,7 +20,7 @@ def scraping_quotes():
     quote_for_scrap = 0
     while quote_for_scrap < 5:
         # преобразуем в soup-объект
-        soup = BeautifulSoup(page.content, features='xml')
+        soup = BeautifulSoup(page.content, features='html.parser')
         # собираем все посты
         quotes = soup.findAll('div', {'class': 'quote'})
 
@@ -29,7 +29,7 @@ def scraping_quotes():
 
             if not Quote.objects.filter(quote_text=text).exists():
                 author_url = requests.get('https://quotes.toscrape.com' + i.find('a').get('href'))
-                author_soup = BeautifulSoup(author_url.content, features='xml')
+                author_soup = BeautifulSoup(author_url.content, features='html.parser')
                 author_detail = author_soup.find('div', class_='author-details')
 
                 auth = author_detail.find('h3', class_='author-title').text
