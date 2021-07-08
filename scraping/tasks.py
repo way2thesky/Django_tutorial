@@ -1,9 +1,14 @@
-from celery import shared_task
+from signal import SIGPIPE, SIG_DFL, signal
+
 from bs4 import BeautifulSoup
-import requests
+
+from celery import shared_task
+
 from django.core.mail import send_mail
+
+import requests
+
 from .models import Author, Quote
-from signal import signal, SIGPIPE, SIG_DFL
 
 signal(SIGPIPE, SIG_DFL)
 
@@ -45,7 +50,7 @@ def scraping_quotes():
                 quote.save()
 
                 quote_for_scrap += 1
-                if quote_for_scrap >= 5:
+                if quote_for_scrap == 5:
                     break
 
         find_link = soup.find('li', {'class': 'next'})
