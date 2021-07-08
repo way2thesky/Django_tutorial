@@ -22,6 +22,6 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ['quote', 'author']
+    list_display = ['quote_text', 'author']
     search_fields = ['author']
-    fields = ['quote']
+    fields = ['quote_text']
