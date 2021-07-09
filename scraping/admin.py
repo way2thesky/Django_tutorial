@@ -13,10 +13,10 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('author_title',
                     'author_born_date',
                     'author_born_location',
-                    'author_description')
+                    'author_about')
     fields = ['author_title',
               'author_born_date',
-              ('author_born_location', 'author_description')]
+              ('author_born_location', 'author_about')]
     inlines = [QuoteInline]
 
 

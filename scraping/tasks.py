@@ -1,11 +1,12 @@
-from celery import shared_task
 from bs4 import BeautifulSoup
-import requests
-from django.core.mail import send_mail
-from .models import Author, Quote
-from signal import signal, SIGPIPE, SIG_DFL
 
-signal(SIGPIPE, SIG_DFL)
+from celery import shared_task
+
+from django.core.mail import send_mail
+
+import requests
+
+from .models import Author, Quote
 
 
 @shared_task
@@ -29,8 +30,8 @@ def scraping_quotes():
                                                       author_born_location=author_soup.find('span',
                                                                                             class_='author-born'
                                                                                                    '-location').text,
-                                                      author_description=author_soup.find('div',
-                                                                                          class_='author-description').text)
+                                                      author_about=author_soup.find('div',
+                                                                                    class_='author-description').text)
 
             if not Quote.objects.filter(quote_text=quote).exists():
                 Quote.objects.get_or_create(quote_text=quote, author=auth)
