@@ -12,7 +12,7 @@ class Quote(models.Model):
 
 class Author(models.Model):
     """Model representing an author."""
-    author_title = models.CharField(max_length=100)
+    author_title = models.CharField(max_length=100, unique=True)
     author_born_date = models.CharField(max_length=10022)
     author_born_location = models.CharField(max_length=100)
     author_description = models.TextField()
